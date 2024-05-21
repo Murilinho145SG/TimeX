@@ -31,7 +31,6 @@ public class TimeX {
 
     public String getEndDate() {
         int month = time.getMonthValue();
-        int day = time.getDayOfMonth();
         LocalDateTime timeEnd;
         if (month == 12) {
              timeEnd = LocalDateTime.of(time.plusYears(1).getYear(), time.plusMonths(1).getMonthValue(), time.plusMonths(1).getDayOfMonth(), time.getHour(), time.getMinute());
@@ -65,9 +64,5 @@ public class TimeX {
     private long getComparisonValue(LocalDateTime dateTime) {
         LocalDateTime epoch = LocalDateTime.of(1970, 1, 1, 0, 0);
         return ChronoUnit.MINUTES.between(epoch, dateTime);
-    }
-
-    public String test() {
-        return "test";
     }
 }
