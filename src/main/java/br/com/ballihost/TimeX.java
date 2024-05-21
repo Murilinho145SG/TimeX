@@ -66,4 +66,8 @@ public class TimeX {
         LocalDateTime epoch = LocalDateTime.of(1970, 1, 1, 0, 0);
         return ChronoUnit.MINUTES.between(epoch, dateTime);
     }
+
+    public String test() {
+        return "test";
+    }
 }
