@@ -2,7 +2,6 @@ package br.com.ballihost;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-
 public class TimeX {
     private final LocalDateTime time = LocalDateTime.now();
 
@@ -29,15 +28,9 @@ public class TimeX {
         return new TimeFormat(time.getDayOfMonth(), time.getMonthValue(), time.getYear()).getDate();
     }
 
-    public String getEndDate() {
-        int month = time.getMonthValue();
+    public String getEndDate(int preTime) {
         LocalDateTime timeEnd;
-        if (month == 12) {
-             timeEnd = LocalDateTime.of(time.plusYears(1).getYear(), time.plusMonths(1).getMonthValue(), time.plusMonths(1).getDayOfMonth(), time.getHour(), time.getMinute());
-        } else {
-            timeEnd = LocalDateTime.of(time.getYear(), time.plusMonths(1).getMonthValue(), time.plusMonths(1).getDayOfMonth(), time.getHour(), time.getMinute());
-        }
-
+        timeEnd = LocalDateTime.of(time.plusMonths(preTime).getYear(), time.plusMonths(preTime).getMonthValue(), time.plusMonths(preTime).getDayOfMonth(), time.getHour(), time.getMinute());
         return String.format("Hour=%s,Date=%s", this.getHourFormat(), new TimeFormat(timeEnd.getDayOfMonth(), timeEnd.getMonthValue(), timeEnd.getYear()).getDate());
     }
 
@@ -51,12 +44,11 @@ public class TimeX {
     }
 
     public long getComparison(String value) {
-        String endDate = this.getEndDate();
-        int year = Integer.parseInt(endDate.split("/")[2]);
-        int month = Integer.parseInt(endDate.split("/")[1].split("/")[0]);
-        int day = Integer.parseInt(endDate.split("/")[0].split("=")[2]);
-        int hour = Integer.parseInt(endDate.split(":")[0].split("=")[1]);
-        int minute = Integer.parseInt(endDate.split(":")[1].split(":")[0]);
+        int year = Integer.parseInt(value.split("/")[2]);
+        int month = Integer.parseInt(value.split("/")[1].split("/")[0]);
+        int day = Integer.parseInt(value.split("/")[0].split("=")[2]);
+        int hour = Integer.parseInt(value.split(":")[0].split("=")[1]);
+        int minute = Integer.parseInt(value.split(":")[1].split(":")[0]);
         LocalDateTime otherTime = LocalDateTime.of(year, month, day, hour, minute);
         return getComparisonValue(otherTime);
     }
